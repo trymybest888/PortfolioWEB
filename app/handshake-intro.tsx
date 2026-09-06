@@ -2,8 +2,18 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-const SEEN_KEY = 'opium-handshake-intro-v1';
-const FRAMES = ['/handshake-clasp.jpg', '/handshake-hook.jpg', '/handshake-dap.jpg'];
+const SEEN_KEY = 'opium-handshake-intro-v2';
+const STEPS = [
+  { src: '/handsign-v2-web.jpg', name: 'Thumb-web hook' },
+  { src: '/handsign-v2-reverse.jpg', name: 'Reverse thumb-web hook' },
+  { src: '/handsign-v2-pinky.jpg', name: 'Pinky hook' },
+  { src: '/handsign-v2-double.jpg', name: 'Pinky and index hook' },
+  { src: '/handsign-v2-web.jpg', name: 'Return to thumb-web hook' },
+  { src: '/handsign-v2-clasp.jpg', name: 'Clasp' },
+];
+const RELEASE_IMAGE = '/handsign-v2-release.jpg';
+const FRAMES = [...new Set([...STEPS.map(step => step.src), RELEASE_IMAGE])];
+const INTRO_DURATION = 4700;
 type Phase = 'off' | 'loading' | 'playing';
 
 export default function HandshakeIntro() {
@@ -88,26 +98,32 @@ export default function HandshakeIntro() {
 
   useEffect(() => {
     if (phase !== 'playing') return;
-    const finish = window.setTimeout(dismiss, 3450);
+    const finish = window.setTimeout(dismiss, INTRO_DURATION);
     return () => window.clearTimeout(finish);
   }, [phase, dismiss]);
 
-  if (!visible) return null;
+    if (!visible) return null;
   return (
     <section className={`handshake-intro handshake-intro--${phase}`} aria-label="แอนิเมชันเปิดเว็บไซต์">
+      <div className="handshake-door handshake-door--left" aria-hidden="true">
+        {phase === 'playing' && <img src={RELEASE_IMAGE} alt="" width="1536" height="1024" className="handshake-release" draggable="false"/>}
+      </div>
+      <div className="handshake-door handshake-door--right" aria-hidden="true">
+        {phase === 'playing' && <img src={RELEASE_IMAGE} alt="" width="1536" height="1024" className="handshake-release" draggable="false"/>}
+      </div>
       <div className="handshake-top"><span>OPIUM® / VOL. 01</span><span>A CONNECTION BEYOND WORDS.</span></div>
       <div className="handshake-stage" aria-hidden="true">
-        <span className="handshake-bracket handshake-bracket--left">[</span>
-        {phase === 'playing' && FRAMES.map((src, index) => (
-          <img key={src} src={src} alt="" className={`handshake-frame handshake-frame--${index + 1}`} width="1536" height="1024" draggable="false"/>
+        {phase === 'playing' && STEPS.map((step, index) => (
+          <img key={index} src={step.src} alt="" data-step={index + 1} className={`handshake-frame handshake-frame--${index + 1}`} width="1536" height="1024" draggable="false"/>
         ))}
-        <span className="handshake-bracket handshake-bracket--right">]</span>
-        <div className="handshake-title">opium<span>®</span></div>
+        {phase === 'loading' && <div className="handshake-title">opium<span>®</span></div>}
       </div>
-      <div className="handshake-bottom"><div><span className="handshake-caption">A MOMENT OF CONNECTION.</span><span className="handshake-rule" aria-hidden="true"/></div><button ref={skipRef} onClick={dismiss} className="handshake-skip">ข้ามอินโทร <span aria-hidden="true">↗</span></button></div>
+      <div className="handshake-light" aria-hidden="true"/>
+      <div className="handshake-light-core" aria-hidden="true"/>
+      <div className="handshake-bottom">
+        <div><span className="handshake-caption">A MOMENT OF CONNECTION.</span><span className="handshake-rule" aria-hidden="true"/></div>
+        <button ref={skipRef} onClick={dismiss} className="handshake-skip">ข้ามอินโทร <span aria-hidden="true">↗</span></button>
+      </div>
     </section>
   );
 }
-
-
-

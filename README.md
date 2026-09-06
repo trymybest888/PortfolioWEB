@@ -17,13 +17,16 @@ Replace YOUR NAME, location, sample skills, history and concept projects with yo
 
 Use npm install, then npm run dev for development. Use npm run build for the production build.
 
-## Handshake intro
+## ## Handshake intro
 
-The intro interprets the first 0-3 seconds of the supplied TikTok as three original engraved hand poses with animated crossfades and movement, followed by the wordmark. It is a stylized animation rather than frame-accurate rotoscoping.
+Six hand signs based on the supplied reference images: thumb-web hook, reversed hook, pinky hook, pinky plus index hook, return to thumb-web hook, and clasp. Step 5 intentionally reuses the first image.
+
+After the clasp, a separate released-hands image keeps each complete hand on its own side of the center line. The two hands and black panels move outward independently, with one central flare revealing the portfolio underneath. There are no repeated flashes.
 
 - Component: app/handshake-intro.tsx
 - Animation: app/handshake-intro.css
-- Optimized assets: public/handshake-clasp.jpg, public/handshake-hook.jpg, public/handshake-dap.jpg
+- Assets: public/handsign-v2-*.jpg
+- Six gestures take about 3 seconds; the final clasp hold and door reveal extend the intro to 4.7 seconds.
 - Plays once per tab session; skips section deep links and reduced-motion preferences.
 - Skip button and Escape dismiss it. Failed or slow image loading releases the page automatically.
-- Hand animation lasts 3 seconds with a short transition into the portfolio.
+- The session key is versioned so visitors who saw the previous intro can see the revised one.

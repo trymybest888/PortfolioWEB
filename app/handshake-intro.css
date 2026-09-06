@@ -1,24 +1,44 @@
-.handshake-intro{position:fixed;inset:0;z-index:1000;background:#000;color:#e7e6e1;display:flex;flex-direction:column;justify-content:space-between;padding:34px 4.2%;overflow:hidden}
-.handshake-top,.handshake-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;z-index:2;font-size:12px;letter-spacing:1.7px}
+.handshake-intro{--intro-duration:4.7s;position:fixed;inset:0;z-index:1000;color:#e7e6e1;display:flex;flex-direction:column;justify-content:space-between;padding:34px 4.2%;overflow:hidden;isolation:isolate}
+.handshake-door{position:absolute;inset:0;background:#000;display:grid;place-items:center;z-index:0;will-change:transform}
+.handshake-door--left{clip-path:inset(0 50% 0 0);--exit:-56vw}
+.handshake-door--right{clip-path:inset(0 0 0 50%);--exit:56vw}
+.handshake-top,.handshake-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;z-index:5;font-size:12px;letter-spacing:1.7px}
 .handshake-top{color:#a3a3a3}.handshake-top>span:first-child{color:#ddd}
-.handshake-stage{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden}
-.handshake-frame{position:absolute;width:min(900px,90vw);height:auto;max-height:75vh;object-fit:contain;opacity:0;mix-blend-mode:screen;filter:grayscale(1) contrast(1.1);will-change:transform,opacity}
-.handshake-bracket{position:absolute;top:50%;transform:translateY(-50%);font-family:Georgia,serif;color:#8c272b;font-size:90px;font-weight:400}.handshake-bracket--left{left:6%}.handshake-bracket--right{right:6%}
-.handshake-title{font-family:Georgia,serif;font-style:italic;font-size:clamp(75px,13vw,180px);font-weight:900;letter-spacing:-.085em;position:relative;opacity:0}.handshake-title>span{display:inline-block;font:14px Arial,sans-serif;letter-spacing:0;vertical-align:top;margin:25px 0 0 14px}
-.handshake-intro--loading .handshake-title{opacity:1;font-size:clamp(65px,9vw,115px)}
+.handshake-stage{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden;z-index:1;pointer-events:none}
+.handshake-frame,.handshake-release{position:absolute;width:min(900px,90vw);height:auto;max-height:75vh;object-fit:contain;filter:grayscale(1);opacity:0;will-change:transform,opacity}
+.handshake-frame{mix-blend-mode:screen}
+.handshake-title{font-family:Georgia,serif;font-style:italic;font-size:clamp(65px,9vw,115px);font-weight:900;letter-spacing:-.085em;position:relative}
+.handshake-title>span{display:inline-block;font:14px Arial,sans-serif;letter-spacing:0;vertical-align:top;margin:25px 0 0 14px}
 .handshake-bottom{margin-top:auto;align-items:flex-end}.handshake-caption{font-size:11px;color:#aaa;display:block;margin-bottom:14px}.handshake-rule{height:1px;width:150px;display:block;background:#292929;overflow:hidden}.handshake-rule:after{content:'';display:block;width:100%;height:100%;background:#b52a31;transform:scaleX(0);transform-origin:left}
-.handshake-skip{border:1px solid #424242;background:transparent;color:#ddd;cursor:pointer;padding:13px 18px;min-height:46px;font-size:14px;letter-spacing:0;display:flex;align-items:center;gap:25px}.handshake-skip:hover{background:#211012;border-color:#a32b31}.handshake-skip:focus-visible{outline:2px solid #ef7373;outline-offset:5px}
-.handshake-intro--playing{animation:handshake-exit 3.45s both}
-.handshake-intro--playing .handshake-frame--1{animation:handshake-clasp 3s both}
-.handshake-intro--playing .handshake-frame--2{animation:handshake-hook 3s both}
-.handshake-intro--playing .handshake-frame--3{animation:handshake-dap 3s both}
-.handshake-intro--playing .handshake-title{animation:handshake-wordmark 3.45s both}
-.handshake-intro--playing .handshake-rule:after{animation:handshake-progress 3s linear both}
-@keyframes handshake-clasp{0%{opacity:0;transform:translateY(22px) scale(.9) rotate(-3deg)}10%,23%{opacity:1}30%{opacity:0;transform:translateY(-4px) scale(1.015) rotate(0)}100%{opacity:0}}
-@keyframes handshake-hook{0%,24%{opacity:0;transform:translateY(20px) scale(.94) rotate(-2deg)}34%,52%{opacity:1}61%{opacity:0;transform:translateY(-15px) scale(1.03) rotate(1deg)}100%{opacity:0}}
-@keyframes handshake-dap{0%,53%{opacity:0;transform:translateY(22px) scale(.94)}64%,79%{opacity:1}94%,100%{opacity:0;transform:translateY(-25px) scale(1.08)}}
-@keyframes handshake-wordmark{0%,74%{opacity:0;transform:translateY(10px) scale(.96)}87%,100%{opacity:1;transform:translateY(0) scale(1)}}
-@keyframes handshake-progress{to{transform:scaleX(1)}}
-@keyframes handshake-exit{0%,87%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-28px)}}
-@media(max-width:680px){.handshake-intro{padding:24px 6%}.handshake-top{font-size:10px;letter-spacing:1px}.handshake-top>span:last-child{max-width:125px;text-align:right;line-height:1.7}.handshake-frame{width:112vw;max-width:none}.handshake-bracket{font-size:55px}.handshake-bracket--left{left:3%}.handshake-bracket--right{right:3%}.handshake-caption{font-size:10px;letter-spacing:1px}.handshake-rule{width:100px}.handshake-title>span{margin-top:15px}.handshake-bottom{gap:12px}}
+.handshake-skip{border:1px solid #424242;background:#080808;color:#ddd;cursor:pointer;padding:13px 18px;min-height:46px;font-size:14px;letter-spacing:0;display:flex;align-items:center;gap:25px}.handshake-skip:hover{background:#211012;border-color:#a32b31}.handshake-skip:focus-visible{outline:2px solid #ef7373;outline-offset:5px}
+.handshake-light,.handshake-light-core{position:absolute;inset:0;opacity:0;pointer-events:none;z-index:3}
+.handshake-light{background:radial-gradient(ellipse at center,rgba(255,255,255,.96) 0%,rgba(255,251,237,.78) 16%,rgba(227,235,255,.30) 37%,transparent 72%);transform:scaleX(.015)}
+.handshake-light-core{inset:10% 49.8%;background:linear-gradient(transparent,#fff 28%,#fff 72%,transparent);box-shadow:0 0 45px 15px rgba(255,255,255,.75)}
+.handshake-intro--playing .handshake-frame--1{animation:sign-1 var(--intro-duration) both}
+.handshake-intro--playing .handshake-frame--2{animation:sign-2 var(--intro-duration) both}
+.handshake-intro--playing .handshake-frame--3{animation:sign-3 var(--intro-duration) both}
+.handshake-intro--playing .handshake-frame--4{animation:sign-4 var(--intro-duration) both}
+.handshake-intro--playing .handshake-frame--5{animation:sign-5 var(--intro-duration) both}
+.handshake-intro--playing .handshake-frame--6{animation:sign-6 var(--intro-duration) both}
+.handshake-intro--playing .handshake-release{animation:sign-release var(--intro-duration) both}
+.handshake-intro--playing .handshake-door{animation:sign-door var(--intro-duration) cubic-bezier(.45,0,.2,1) both}
+.handshake-intro--playing .handshake-light{animation:sign-light var(--intro-duration) both}
+.handshake-intro--playing .handshake-light-core{animation:sign-light-core var(--intro-duration) both}
+.handshake-intro--playing .handshake-top,.handshake-intro--playing .handshake-caption,.handshake-intro--playing .handshake-rule{animation:sign-chrome var(--intro-duration) both}
+.handshake-intro--playing .handshake-rule:after{animation:sign-progress var(--intro-duration) linear both}
+/* Six half-second gestures, a short clasp hold, then a gradual outward release. */
+@keyframes sign-1{0%{opacity:0;transform:translateY(10px)}3%,9%{opacity:1;transform:translateY(0)}12%,100%{opacity:0}}
+@keyframes sign-2{0%,9%{opacity:0;transform:rotate(-2deg)}12%,20%{opacity:1;transform:rotate(0)}23%,100%{opacity:0}}
+@keyframes sign-3{0%,20%{opacity:0;transform:translateY(6px)}23%,31%{opacity:1;transform:translateY(0)}34%,100%{opacity:0}}
+@keyframes sign-4{0%,31%{opacity:0}34%,42%{opacity:1}45%,100%{opacity:0}}
+@keyframes sign-5{0%,42%{opacity:0;transform:translateY(-4px)}45%,53%{opacity:1;transform:translateY(0)}56%,100%{opacity:0}}
+@keyframes sign-6{0%,53%{opacity:0;transform:scale(.97)}56%,66%{opacity:1;transform:scale(1)}70%,100%{opacity:0}}
+@keyframes sign-release{0%,66%{opacity:0}70%,94%{opacity:1}100%{opacity:0}}
+@keyframes sign-door{0%,69%{transform:translateX(0)}98%,100%{transform:translateX(var(--exit))}}
+/* One soft central flare; no repeated flashes. */
+@keyframes sign-light{0%,68%{opacity:0;transform:scaleX(.015)}73%{opacity:.8;transform:scaleX(.3)}80%{opacity:.9;transform:scaleX(1.35)}93%,100%{opacity:0;transform:scaleX(2)}}
+@keyframes sign-light-core{0%,68%{opacity:0;transform:scaleY(.4)}73%{opacity:.95;transform:scaleY(1)}83%,100%{opacity:0;transform:scaleY(1.1)}}
+@keyframes sign-chrome{0%,68%{opacity:1}77%,100%{opacity:0}}
+@keyframes sign-progress{0%{transform:scaleX(0)}70%,100%{transform:scaleX(1)}}
+@media(max-width:680px){.handshake-intro{padding:24px 6%}.handshake-top{font-size:10px;letter-spacing:1px}.handshake-top>span:last-child{max-width:125px;text-align:right;line-height:1.7}.handshake-frame,.handshake-release{width:100vw;max-width:none}.handshake-caption{font-size:10px;letter-spacing:1px}.handshake-rule{width:100px}.handshake-title>span{margin-top:15px}.handshake-bottom{gap:12px}}
 @media(prefers-reduced-motion:reduce){.handshake-intro{display:none}.handshake-intro,.handshake-intro *{animation:none!important;transition:none!important}}
