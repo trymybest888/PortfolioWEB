@@ -1,0 +1,24 @@
+.handshake-intro{position:fixed;inset:0;z-index:1000;background:#000;color:#e7e6e1;display:flex;flex-direction:column;justify-content:space-between;padding:34px 4.2%;overflow:hidden}
+.handshake-top,.handshake-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;z-index:2;font-size:12px;letter-spacing:1.7px}
+.handshake-top{color:#a3a3a3}.handshake-top>span:first-child{color:#ddd}
+.handshake-stage{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden}
+.handshake-frame{position:absolute;width:min(900px,90vw);height:auto;max-height:75vh;object-fit:contain;opacity:0;mix-blend-mode:screen;filter:grayscale(1) contrast(1.1);will-change:transform,opacity}
+.handshake-bracket{position:absolute;top:50%;transform:translateY(-50%);font-family:Georgia,serif;color:#8c272b;font-size:90px;font-weight:400}.handshake-bracket--left{left:6%}.handshake-bracket--right{right:6%}
+.handshake-title{font-family:Georgia,serif;font-style:italic;font-size:clamp(75px,13vw,180px);font-weight:900;letter-spacing:-.085em;position:relative;opacity:0}.handshake-title>span{display:inline-block;font:14px Arial,sans-serif;letter-spacing:0;vertical-align:top;margin:25px 0 0 14px}
+.handshake-intro--loading .handshake-title{opacity:1;font-size:clamp(65px,9vw,115px)}
+.handshake-bottom{margin-top:auto;align-items:flex-end}.handshake-caption{font-size:11px;color:#aaa;display:block;margin-bottom:14px}.handshake-rule{height:1px;width:150px;display:block;background:#292929;overflow:hidden}.handshake-rule:after{content:'';display:block;width:100%;height:100%;background:#b52a31;transform:scaleX(0);transform-origin:left}
+.handshake-skip{border:1px solid #424242;background:transparent;color:#ddd;cursor:pointer;padding:13px 18px;min-height:46px;font-size:14px;letter-spacing:0;display:flex;align-items:center;gap:25px}.handshake-skip:hover{background:#211012;border-color:#a32b31}.handshake-skip:focus-visible{outline:2px solid #ef7373;outline-offset:5px}
+.handshake-intro--playing{animation:handshake-exit 3.45s both}
+.handshake-intro--playing .handshake-frame--1{animation:handshake-clasp 3s both}
+.handshake-intro--playing .handshake-frame--2{animation:handshake-hook 3s both}
+.handshake-intro--playing .handshake-frame--3{animation:handshake-dap 3s both}
+.handshake-intro--playing .handshake-title{animation:handshake-wordmark 3.45s both}
+.handshake-intro--playing .handshake-rule:after{animation:handshake-progress 3s linear both}
+@keyframes handshake-clasp{0%{opacity:0;transform:translateY(22px) scale(.9) rotate(-3deg)}10%,23%{opacity:1}30%{opacity:0;transform:translateY(-4px) scale(1.015) rotate(0)}100%{opacity:0}}
+@keyframes handshake-hook{0%,24%{opacity:0;transform:translateY(20px) scale(.94) rotate(-2deg)}34%,52%{opacity:1}61%{opacity:0;transform:translateY(-15px) scale(1.03) rotate(1deg)}100%{opacity:0}}
+@keyframes handshake-dap{0%,53%{opacity:0;transform:translateY(22px) scale(.94)}64%,79%{opacity:1}94%,100%{opacity:0;transform:translateY(-25px) scale(1.08)}}
+@keyframes handshake-wordmark{0%,74%{opacity:0;transform:translateY(10px) scale(.96)}87%,100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes handshake-progress{to{transform:scaleX(1)}}
+@keyframes handshake-exit{0%,87%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-28px)}}
+@media(max-width:680px){.handshake-intro{padding:24px 6%}.handshake-top{font-size:10px;letter-spacing:1px}.handshake-top>span:last-child{max-width:125px;text-align:right;line-height:1.7}.handshake-frame{width:112vw;max-width:none}.handshake-bracket{font-size:55px}.handshake-bracket--left{left:3%}.handshake-bracket--right{right:3%}.handshake-caption{font-size:10px;letter-spacing:1px}.handshake-rule{width:100px}.handshake-title>span{margin-top:15px}.handshake-bottom{gap:12px}}
+@media(prefers-reduced-motion:reduce){.handshake-intro{display:none}.handshake-intro,.handshake-intro *{animation:none!important;transition:none!important}}

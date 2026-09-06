@@ -16,3 +16,14 @@ Previous /skills, /history and /work URLs redirect to the corresponding section 
 Replace YOUR NAME, location, sample skills, history and concept projects with your own information. Sample content is labeled on the website. The hero illustration is AI generated.
 
 Use npm install, then npm run dev for development. Use npm run build for the production build.
+
+## Handshake intro
+
+The intro interprets the first 0-3 seconds of the supplied TikTok as three original engraved hand poses with animated crossfades and movement, followed by the wordmark. It is a stylized animation rather than frame-accurate rotoscoping.
+
+- Component: app/handshake-intro.tsx
+- Animation: app/handshake-intro.css
+- Optimized assets: public/handshake-clasp.jpg, public/handshake-hook.jpg, public/handshake-dap.jpg
+- Plays once per tab session; skips section deep links and reduced-motion preferences.
+- Skip button and Escape dismiss it. Failed or slow image loading releases the page automatically.
+- Hand animation lasts 3 seconds with a short transition into the portfolio.
