@@ -2,14 +2,14 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-const SEEN_KEY = 'opium-handshake-intro-v2';
+const SEEN_KEY = 'opium-handshake-intro-v3';
 const STEPS = [
   { src: '/handsign-v2-web.jpg', name: 'Thumb-web hook' },
   { src: '/handsign-v2-reverse.jpg', name: 'Reverse thumb-web hook' },
   { src: '/handsign-v2-pinky.jpg', name: 'Pinky hook' },
   { src: '/handsign-v2-double.jpg', name: 'Pinky and index hook' },
   { src: '/handsign-v2-web.jpg', name: 'Return to thumb-web hook' },
-  { src: '/handsign-v2-clasp.jpg', name: 'Clasp' },
+  { src: '/handsign-v2-clasp.jpg?v=interlaced', name: 'Interlaced clasp' },
 ];
 const RELEASE_IMAGE = '/handsign-v2-release.jpg';
 const FRAMES = [...new Set([...STEPS.map(step => step.src), RELEASE_IMAGE])];
