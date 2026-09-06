@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-const SEEN_KEY = 'opium-handshake-intro-v3';
+const SEEN_KEY = 'opium-handshake-intro-v4';
 const STEPS = [
   { src: '/handsign-v2-web.jpg', name: 'Thumb-web hook' },
   { src: '/handsign-v2-reverse.jpg', name: 'Reverse thumb-web hook' },
@@ -113,6 +113,12 @@ export default function HandshakeIntro() {
       </div>
       <div className="handshake-top"><span>OPIUM® / VOL. 01</span><span>A CONNECTION BEYOND WORDS.</span></div>
       <div className="handshake-stage" aria-hidden="true">
+        {phase === 'playing' && [{ step: 1, letter: 'Y' }, { step: 3, letter: 'V' }, { step: 6, letter: 'L' }].map(({ step, letter }) => (
+          <span key={letter} className={`handshake-letter handshake-letter--${step}`} data-letter-step={step} data-letter={letter}>
+            <span className="handshake-letter-serif">{letter}</span>
+            <span className="handshake-letter-bold">{letter}</span>
+          </span>
+        ))}
         {phase === 'playing' && STEPS.map((step, index) => (
           <img key={index} src={step.src} alt="" data-step={index + 1} className={`handshake-frame handshake-frame--${index + 1}`} width="1536" height="1024" draggable="false"/>
         ))}

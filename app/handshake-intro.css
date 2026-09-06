@@ -42,3 +42,17 @@
 @keyframes sign-progress{0%{transform:scaleX(0)}70%,100%{transform:scaleX(1)}}
 @media(max-width:680px){.handshake-intro{padding:24px 6%}.handshake-top{font-size:10px;letter-spacing:1px}.handshake-top>span:last-child{max-width:125px;text-align:right;line-height:1.7}.handshake-frame,.handshake-release{width:100vw;max-width:none}.handshake-caption{font-size:10px;letter-spacing:1px}.handshake-rule{width:100px}.handshake-title>span{margin-top:15px}.handshake-bottom{gap:12px}}
 @media(prefers-reduced-motion:reduce){.handshake-intro{display:none}.handshake-intro,.handshake-intro *{animation:none!important;transition:none!important}}
+
+/* Tall serif with a compressed bold overprint, inspired by the supplied typography. */
+.handshake-letter{position:absolute;inset:0;display:grid;place-items:center;z-index:0;opacity:0;color:#fff;pointer-events:none;font-size:clamp(240px,83vh,850px);line-height:.82;will-change:opacity}
+.handshake-letter-serif,.handshake-letter-bold{grid-area:1/1;display:block;text-align:center;font-synthesis:none}
+.handshake-letter-serif{font-family:'Bodoni MT','Didot','Times New Roman',serif;font-weight:400;transform:scaleX(.76)}
+.handshake-letter-bold{font-family:Impact,'Arial Black',Arial,sans-serif;font-weight:900;transform:scaleX(.94) scaleY(.39)}
+.handshake-frame{z-index:1}
+.handshake-intro--playing .handshake-letter--1{animation:letter-y var(--intro-duration) linear both}
+.handshake-intro--playing .handshake-letter--3{animation:letter-v var(--intro-duration) linear both}
+.handshake-intro--playing .handshake-letter--6{animation:letter-l var(--intro-duration) linear both}
+@keyframes letter-y{0%,2%{opacity:0}3%,5%{opacity:1}6%,7%{opacity:0}8%,9%{opacity:1}11%,100%{opacity:0}}
+@keyframes letter-v{0%,22%{opacity:0}23%,25%{opacity:1}26%,27%{opacity:0}28%,31%{opacity:1}33%,100%{opacity:0}}
+@keyframes letter-l{0%,55%{opacity:0}56%,59%{opacity:1}60%,61%{opacity:0}62%,66%{opacity:1}68%,100%{opacity:0}}
+@media(max-width:680px){.handshake-letter{font-size:min(104vw,78vh)}}
