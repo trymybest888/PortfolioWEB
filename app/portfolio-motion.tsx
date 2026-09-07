@@ -1,0 +1,58 @@
+'use client';
+
+import { useEffect } from 'react';
+
+export default function PortfolioMotion() {
+  useEffect(() => {
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const shell = document.getElementById('portfolio-shell');
+    const hero = document.querySelector<HTMLElement>('.hero');
+    if (!shell || !hero) return;
+    const items = Array.from(document.querySelectorAll<HTMLElement>('.hero-copy,.hero-art,.about>div,.page-heading,.skill-card,.timeline article,.project'));
+    let frame = 0;
+    const observer = new IntersectionObserver(entries => {
+      if (shell.inert) return;
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    const reveal = () => {
+      items.forEach(item => {
+        if (motion.matches) {
+          item.classList.remove('motion-reveal');
+          observer.unobserve(item);
+        } else {
+          item.classList.add('motion-reveal');
+          observer.unobserve(item);
+          observer.observe(item);
+        }
+      });
+    };
+    const update = () => {
+      frame = 0;
+      const top = hero.getBoundingClientRect().top;
+      const shift = motion.matches ? 0 : Math.max(-45, Math.min(45, -top * .075));
+      hero.style.setProperty('--art-drift', `${shift}px`);
+    };
+    const scroll = () => { if (!frame) frame = requestAnimationFrame(update); };
+    const mutation = new MutationObserver(() => { if (!shell.inert) reveal(); });
+    mutation.observe(shell, { attributes: true, attributeFilter: ['inert'] });
+    reveal();
+    update();
+    motion.addEventListener('change', reveal);
+    window.addEventListener('scroll', scroll, { passive: true });
+    return () => {
+      observer.disconnect();
+      mutation.disconnect();
+      motion.removeEventListener('change', reveal);
+      window.removeEventListener('scroll', scroll);
+      cancelAnimationFrame(frame);
+      hero.style.removeProperty('--art-drift');
+      items.forEach(item => item.classList.remove('motion-reveal', 'is-revealed'));
+    };
+  }, []);
+  return null;
+}
