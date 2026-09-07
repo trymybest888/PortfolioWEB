@@ -6,7 +6,7 @@
 .handshake-top{color:#a3a3a3}.handshake-top>span:first-child{color:#ddd}
 .handshake-stage{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden;z-index:1;pointer-events:none}
 .handshake-frame,.handshake-release{position:absolute;width:min(900px,90vw);height:auto;max-height:75vh;object-fit:contain;filter:grayscale(1);opacity:0;will-change:transform,opacity}
-.handshake-frame{mix-blend-mode:screen}
+.handshake-frame{z-index:1}
 .handshake-title{font-family:Georgia,serif;font-style:italic;font-size:clamp(65px,9vw,115px);font-weight:900;letter-spacing:-.085em;position:relative}
 .handshake-title>span{display:inline-block;font:14px Arial,sans-serif;letter-spacing:0;vertical-align:top;margin:25px 0 0 14px}
 .handshake-bottom{margin-top:auto;align-items:flex-end}.handshake-caption{font-size:11px;color:#aaa;display:block;margin-bottom:14px}.handshake-rule{height:1px;width:150px;display:block;background:#292929;overflow:hidden}.handshake-rule:after{content:'';display:block;width:100%;height:100%;background:#b52a31;transform:scaleX(0);transform-origin:left}
@@ -43,12 +43,9 @@
 @media(max-width:680px){.handshake-intro{padding:24px 6%}.handshake-top{font-size:10px;letter-spacing:1px}.handshake-top>span:last-child{max-width:125px;text-align:right;line-height:1.7}.handshake-frame,.handshake-release{width:100vw;max-width:none}.handshake-caption{font-size:10px;letter-spacing:1px}.handshake-rule{width:100px}.handshake-title>span{margin-top:15px}.handshake-bottom{gap:12px}}
 @media(prefers-reduced-motion:reduce){.handshake-intro{display:none}.handshake-intro,.handshake-intro *{animation:none!important;transition:none!important}}
 
-/* Tall serif with a compressed bold overprint, inspired by the supplied typography. */
-.handshake-letter{position:absolute;inset:0;display:grid;place-items:center;z-index:0;opacity:0;color:#fff;pointer-events:none;font-size:clamp(240px,83vh,850px);line-height:.82;will-change:opacity}
-.handshake-letter-serif,.handshake-letter-bold{grid-area:1/1;display:block;text-align:center;font-synthesis:none}
-.handshake-letter-serif{font-family:'Bodoni MT','Didot','Times New Roman',serif;font-weight:400;transform:scaleX(.76)}
-.handshake-letter-bold{font-family:Impact,'Arial Black',Arial,sans-serif;font-weight:900;transform:scaleX(.94) scaleY(.39)}
-.handshake-frame{z-index:1}
+/* Pure white, tall and narrow serif lettering inspired by the VLONE reference. */
+.handshake-letter{position:absolute;inset:0;display:grid;place-items:center;z-index:0;opacity:0;color:#fff;pointer-events:none;font-size:clamp(240px,78vh,850px);line-height:.82;will-change:opacity}
+.handshake-letter-serif{display:block;text-align:center;font-synthesis:none;font-family:'Bodoni MT','Didot','Times New Roman',serif;font-weight:400;transform:scaleX(.42) scaleY(1.12)}
 .handshake-intro--playing .handshake-letter--1{animation:letter-y var(--intro-duration) linear both}
 .handshake-intro--playing .handshake-letter--3{animation:letter-v var(--intro-duration) linear both}
 .handshake-intro--playing .handshake-letter--6{animation:letter-l var(--intro-duration) linear both}

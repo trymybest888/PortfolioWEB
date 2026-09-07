@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-const SEEN_KEY = 'opium-handshake-intro-v4';
+const SEEN_KEY = 'opium-handshake-intro-v5';
 const STEPS = [
   { src: '/handsign-v2-web.jpg', name: 'Thumb-web hook' },
   { src: '/handsign-v2-reverse.jpg', name: 'Reverse thumb-web hook' },
@@ -116,11 +116,27 @@ export default function HandshakeIntro() {
         {phase === 'playing' && [{ step: 1, letter: 'Y' }, { step: 3, letter: 'V' }, { step: 6, letter: 'L' }].map(({ step, letter }) => (
           <span key={letter} className={`handshake-letter handshake-letter--${step}`} data-letter-step={step} data-letter={letter}>
             <span className="handshake-letter-serif">{letter}</span>
-            <span className="handshake-letter-bold">{letter}</span>
           </span>
         ))}
         {phase === 'playing' && STEPS.map((step, index) => (
-          <img key={index} src={step.src} alt="" data-step={index + 1} className={`handshake-frame handshake-frame--${index + 1}`} width="1536" height="1024" draggable="false"/>
+          <svg key={index} data-step={index + 1} data-src={step.src} className={`handshake-frame handshake-frame--${index + 1}`} viewBox="0 0 1536 1024" width="1536" height="1024" focusable="false">
+            <defs>
+              {/* Close the engraving's fine gaps so the hands occlude the letters. */}
+              <filter id={`hand-silhouette-${index}`} colorInterpolationFilters="sRGB">
+                <feComponentTransfer>
+                  <feFuncR type="linear" slope="24" intercept="-.18"/>
+                  <feFuncG type="linear" slope="24" intercept="-.18"/>
+                  <feFuncB type="linear" slope="24" intercept="-.18"/>
+                </feComponentTransfer>
+                <feMorphology operator="dilate" radius="4"/>
+                <feMorphology operator="erode" radius="3"/>
+              </filter>
+              <mask id={`hand-mask-${index}`} maskUnits="userSpaceOnUse" x="0" y="0" width="1536" height="1024" style={{ maskType: 'luminance' }}>
+                <image href={step.src} width="1536" height="1024" filter={`url(#hand-silhouette-${index})`}/>
+              </mask>
+            </defs>
+            <image href={step.src} width="1536" height="1024" mask={`url(#hand-mask-${index})`}/>
+          </svg>
         ))}
         {phase === 'loading' && <div className="handshake-title">opium<span>®</span></div>}
       </div>
