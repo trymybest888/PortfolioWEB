@@ -19,9 +19,10 @@ html{scroll-padding-top:24px}
 .section-navigation{position:fixed;top:72px;right:24px;z-index:60;display:flex;flex-direction:column;gap:12px}
 .section-navigation-link{position:relative;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;outline-offset:5px}
 .section-navigation-number{display:grid;place-items:center;width:44px;height:44px;border:2px solid #fff;border-radius:50%;background:#fff;color:#000;font-size:18px;font-weight:500;transition:background .18s,color .18s;position:relative;z-index:1}
-.section-navigation-label{position:absolute;right:calc(100% - 2px);top:0;min-height:44px;display:flex;align-items:center;padding:0 20px 0 16px;white-space:nowrap;background:#000;color:#fff;border:1px solid #fff;border-radius:24px 0 0 24px;font-size:14px;opacity:0;visibility:hidden;transform:translateX(8px);transition:opacity .18s,transform .18s,visibility .18s;pointer-events:none}
+.section-navigation-label{position:absolute;right:0;top:0;min-height:44px;display:flex;align-items:center;padding:0 56px 0 20px;white-space:nowrap;background:#000;color:#fff;border:2px solid #fff;border-radius:999px;font-size:14px;opacity:0;visibility:hidden;transform:translateX(8px);transition:opacity .18s,transform .18s,visibility .18s;pointer-events:none}
 .section-navigation-link:hover .section-navigation-number,.section-navigation-link:focus-visible .section-navigation-number{background:#000;color:#fff}
 .section-navigation-link:hover .section-navigation-label,.section-navigation-link:focus-visible .section-navigation-label{opacity:1;visibility:visible;transform:translateX(0);pointer-events:auto}
 .section-navigation-link:focus-visible{outline-color:#fff}
 #main{padding-right:76px}
-@media(max-width:680px){.section-navigation{top:24px;right:12px;gap:8px}#main{padding-right:62px}.section-navigation-label{font-size:13px}}
+@media(max-width:680px){.section-navigation{top:24px;right:12px;gap:8px}#main{padding-right:62px}.section-navigation-label{font-size:13px}}.section-navigation-link[aria-current="location"] .section-navigation-number{background:#000;color:#fff}
+.section-navigation-link:hover .section-navigation-number,.section-navigation-link:focus-visible .section-navigation-number{background:transparent;border-color:transparent;color:#fff}

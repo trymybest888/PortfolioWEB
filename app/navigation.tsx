@@ -22,6 +22,7 @@ export default function Navigation() {
         const section = document.getElementById(id);
         if (section && section.getBoundingClientRect().top <= offset) current = id;
       }
+      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) current = 'work';
       setActive(current);
     };
     const scheduleUpdate = () => {
@@ -42,7 +43,7 @@ export default function Navigation() {
   return (
       <nav className="section-navigation" aria-label="เมนูหัวข้อ">
         {links.map(([id, label, number]) => (
-          <a key={id} className="section-navigation-link" href={`#${id}`} aria-label={label} aria-current={active === id ? 'location' : undefined}>
+          <a key={id} className="section-navigation-link" href={`#${id}`} onClick={() => setActive(id)} aria-label={label} aria-current={active === id ? 'location' : undefined}>
             <span className="section-navigation-label" aria-hidden="true">{label}</span>
             <span className="section-navigation-number" aria-hidden="true">{number}</span>
           </a>
