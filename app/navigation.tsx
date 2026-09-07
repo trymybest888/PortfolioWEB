@@ -1,25 +1,22 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const links = [
-  ['introduction', 'แนะนำตัว', '01'],
-  ['skills', 'SKILLS', '02'],
-  ['history', 'ประวัติ', '03'],
-  ['work', 'ผลงาน', '04'],
+  ['introduction', 'แนะนำตัว', '1'],
+  ['skills', 'SKILLS', '2'],
+  ['history', 'ประวัติ', '3'],
+  ['work', 'ผลงาน', '4'],
 ];
 
 export default function Navigation() {
   const [active, setActive] = useState('introduction');
-  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const header = headerRef.current;
-    if (!header) return;
     let frame = 0;
     const updateActive = () => {
       frame = 0;
-      const offset = header.getBoundingClientRect().height + 32;
+      const offset = 48;
       let current = 'introduction';
       for (const [id] of links) {
         const section = document.getElementById(id);
@@ -30,35 +27,26 @@ export default function Navigation() {
     const scheduleUpdate = () => {
       if (!frame) frame = window.requestAnimationFrame(updateActive);
     };
-    const updateOffset = () => {
-      document.documentElement.style.setProperty('--nav-height', `${header.getBoundingClientRect().height}px`);
-      scheduleUpdate();
-    };
-    const observer = new ResizeObserver(updateOffset);
-    observer.observe(header);
-    updateOffset();
+    updateActive();
     window.addEventListener('scroll', scheduleUpdate, { passive: true });
     window.addEventListener('hashchange', scheduleUpdate);
+    window.addEventListener('resize', scheduleUpdate);
     return () => {
-      observer.disconnect();
       window.removeEventListener('scroll', scheduleUpdate);
       window.removeEventListener('hashchange', scheduleUpdate);
+      window.removeEventListener('resize', scheduleUpdate);
       window.cancelAnimationFrame(frame);
-      document.documentElement.style.removeProperty('--nav-height');
     };
   }, []);
 
   return (
-    <header ref={headerRef} className="header">
-      <a className="wordmark" href="#introduction" aria-label="Opium กลับด้านบน">opium<span>®</span></a>
-      <nav aria-label="เมนูหัวข้อ">
+      <nav className="section-navigation" aria-label="เมนูหัวข้อ">
         {links.map(([id, label, number]) => (
-          <a key={id} href={`#${id}`} aria-current={active === id ? 'location' : undefined}>
-            <small>{number}</small>{label}
+          <a key={id} className="section-navigation-link" href={`#${id}`} aria-label={label} aria-current={active === id ? 'location' : undefined}>
+            <span className="section-navigation-label" aria-hidden="true">{label}</span>
+            <span className="section-navigation-number" aria-hidden="true">{number}</span>
           </a>
         ))}
       </nav>
-      <span className="edition">INDEPENDENT MIND.<br/>UNLIMITED POSSIBILITIES.</span>
-    </header>
   );
 }
