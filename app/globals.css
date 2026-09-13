@@ -59,7 +59,7 @@ body{background:#000;-webkit-font-smoothing:antialiased}
 /* Reveal the supplied project screenshots on hover or keyboard focus. */
 .project-art.project-preview{position:relative;overflow:hidden;filter:none}
 .project:hover .project-art.project-preview{filter:none}
-.project-screenshot{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#faf8f4;opacity:0;transition:opacity .25s ease;pointer-events:none}
+.project-screenshot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;background:#faf8f4;opacity:0;transition:opacity .25s ease;pointer-events:none}
 .project-preview:hover .project-screenshot,.project-preview:focus .project-screenshot{opacity:1}
 .project-preview:focus-visible{outline:2px solid #fff;outline-offset:6px}
 @media(hover:none){.project-preview .project-screenshot{opacity:1}}
