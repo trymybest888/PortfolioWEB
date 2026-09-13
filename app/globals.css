@@ -56,3 +56,10 @@ body{background:#000;-webkit-font-smoothing:antialiased}
 @media(max-width:1000px){.hero-grid{min-height:620px}.hero-art{height:520px}}
 @media(max-width:680px){.hero{padding-top:28px}.hero-grid{grid-template-columns:1fr;min-height:auto}.hero h1{font-size:clamp(40px,9.6vw,65px);margin-right:0}.hero h1 em{letter-spacing:-.08em}.hero-art{height:380px;margin-top:0;overflow:hidden}.hero-copy{padding-top:70px}.hero-top{flex-wrap:wrap;gap:10px}.hero-top,.hero-bottom{font-size:9px;letter-spacing:.5px}.section,.portfolio-section{padding-top:72px;padding-bottom:72px}.page-heading{margin-bottom:35px}.page-heading h2{font-size:clamp(42px,10vw,64px)}.skill-card{padding:25px}.work-grid{gap:42px}.project-art{padding:24px}.project-art strong{font-size:62px}.project-art.second strong{font-size:64px}.project-art.third strong{font-size:44px;letter-spacing:5px}.project-art.fourth strong{font-size:60px}}
 @media(prefers-reduced-motion:reduce){.motion-reveal{opacity:1;transform:none}.hero-art img{transform:none}.project:hover .project-art{transform:none}}
+/* Reveal the supplied Foodrandom screenshot on hover or keyboard focus. */
+.project-art.foodrandom-preview{position:relative;overflow:hidden;filter:none}
+.project:hover .project-art.foodrandom-preview{filter:none}
+.foodrandom-screenshot{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#faf8f4;opacity:0;transition:opacity .25s ease;pointer-events:none}
+.foodrandom-preview:hover .foodrandom-screenshot,.foodrandom-preview:focus .foodrandom-screenshot{opacity:1}
+.foodrandom-preview:focus-visible{outline:2px solid #fff;outline-offset:6px}
+@media(hover:none){.foodrandom-preview .foodrandom-screenshot{opacity:1}}
