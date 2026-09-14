@@ -1,3 +1,15 @@
-const skills=[{n:'01',category:'DESIGN',title:'Visual thinking.',text:'เปลี่ยนแนวคิดให้เป็นภาพที่สื่อสารได้ชัดเจน ตั้งแต่เอกลักษณ์ของแบรนด์จนถึงหน้าจอที่ใช้งานง่าย',tags:['UI / UX Design','Figma','Typography','Brand Identity']},{n:'02',category:'DEVELOPMENT',title:'Ideas into code.',text:'สร้างเว็บไซต์ที่ใช้งานได้จริง ใส่ใจทั้งรายละเอียดของหน้าตาและประสบการณ์ในทุกขนาดหน้าจอ',tags:['HTML & CSS','JavaScript','React','Responsive Design']},{n:'03',category:'CREATIVE',title:'Make it different.',text:'ทดลองกับภาพ ตัวอักษร และจังหวะ เพื่อค้นหาวิธีเล่าเรื่องที่มีบุคลิกและมุมมองเป็นของตัวเอง',tags:['Art Direction','Photo Editing','Content Design','Concept Development']},{n:'04',category:'WORKFLOW',title:'Always evolving.',text:'เรียนรู้จากการลงมือทำ รับฟังความคิดเห็น และพัฒนางานร่วมกับคนอื่นอย่างเป็นระบบ',tags:['Git & GitHub','Problem Solving','Teamwork','Self-learning']}];
-export default function Skills(){return <section id="skills" className="page-main portfolio-section" aria-labelledby="skills-heading"><div className="page-heading"><div><span className="eyebrow">[ 02 — THE TOOLKIT ]</span><h2 id="skills-heading">MY <em>SKILLS.</em><span className="red">*</span></h2></div><p>เครื่องมือที่ใช้ ความถนัดที่มี<br/>และสิ่งที่ผมพัฒนาอยู่เสมอ</p></div><div className="skill-grid">{skills.map(s=><article className="skill-card" key={s.n}><div className="skill-top"><span>{s.category}</span><span>{s.n} / 04</span></div><h3>{s.title}</h3><p>{s.text}</p><div className="tags">{s.tags.map(t=><span className="tag" key={t}>{t}</span>)}</div></article>)}</div><p className="page-note">รายการทักษะตัวอย่าง — ปรับให้ตรงกับความถนัดและเครื่องมือที่คุณใช้จริง</p></section>}
+const skillGroups = [
+  { number: '01', category: 'AI', title: 'ทักษะ AI', items: [{ name: 'Gemini', level: 'Very good' }, { name: 'ChatGPT', level: 'Very good' }, { name: 'Claude', level: 'Good' }] },
+  { number: '02', category: 'COMPUTER', title: 'ทักษะคอมพิวเตอร์', items: [{ name: 'Python', level: 'Good' }, { name: 'C#', level: 'Mid' }, { name: 'SQL', level: 'Good' }, { name: 'Photoshop', level: 'Good' }] },
+];
 
+export default function Skills() {
+  return <section id="skills" className="page-main portfolio-section" aria-labelledby="skills-heading">
+    <div className="page-heading"><div><span className="eyebrow">[ 02 — THE TOOLKIT ]</span><h2 id="skills-heading">MY <em>SKILLS.</em><span className="red">*</span></h2></div><p>ทักษะ AI และทักษะคอมพิวเตอร์</p></div>
+    <div className="skill-grid">{skillGroups.map(group => <article className="skill-card" key={group.number}>
+      <div className="skill-top"><span>{group.category}</span><span>{group.number} / 02</span></div>
+      <h3>{group.title}</h3>
+      <dl className="skill-level-list">{group.items.map(item => <div key={item.name}><dt>{item.name}</dt><dd>{item.level}</dd></div>)}</dl>
+    </article>)}</div>
+  </section>;
+}
