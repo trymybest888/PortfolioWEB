@@ -1,8 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState, type PointerEvent } from 'react';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const projects=[{"n":"01","name":"Foodrandom","type":"WEBSITE","word":"FOOD\nRANDOM.","sub":"FOODRANDOM / WEBSITE","style":"","description":"เว็บไซต์ Foodrandom","detail":"เว็บแอปพลิเคชันที่ช่วยแก้ปัญหา “วันนี้กินอะไรดี?” ด้วยการสุ่มเมนูอาหารและรวบรวมข้อมูลร้านอาหารภายในสถาบัน ผู้ใช้สามารถเลือกร้านตามอาคาร ดูรายละเอียดเมนู และอ่านคะแนนรีวิวเพื่อประกอบการตัดสินใจ โดยมีเป้าหมายให้การเลือกอาหารสะดวก สนุก และช่วยให้รู้จักร้านอาหารภายในสถาบันมากขึ้น","tools":"","href":"https://drive.google.com/file/d/1_kFaXzulpZDoI-jTAQ5KYf6-3QtQd0xF/view?usp=drive_link","image":{"src":"/foodrandom-preview.png","alt":"หน้าเว็บไซต์ Foodrandom แสดงรายการอาหารและตัวกรองค้นหา","width":806,"height":806}},{"n":"02","name":"Badmedic","type":"APPLICATION","word":"BAD\nMEDIC.","sub":"BADMEDIC / APPLICATION","style":"second","description":"แอป Badmedic","detail":"แอปพลิเคชันบนมือถือที่นำเสนอการทำนายสุขภาพในรูปแบบความบันเทิง ผู้ใช้สามารถอัปโหลดรูปภาพ กรอกชื่อและวันเกิด แล้วเลือกดูคำทำนายสุขภาพในอนาคต หรือใช้ฟังก์ชัน Death Clock เพื่อแสดงวันและสาเหตุการเสียชีวิตในลักษณะสมมติ โดยแสดงผลพร้อมข้อมูลและรูปภาพของผู้ใช้","tools":"","href":"https://drive.google.com/file/d/1iH99aRs9hSaRPqLLmcZkchAf3E68InYU/view?usp=drive_link","image":{"src":"/badmedic-preview.png","alt":"ภาพแอป Badmedic","width":985,"height":985}},{"n":"03","name":"Aniguide","type":"WEBSITE","word":"ANI\nGUIDE.","sub":"ANIGUIDE / WEBSITE","style":"third","description":"เว็บไซต์ Aniguide","detail":"เว็บไซต์สำหรับค้นหา รีวิว และจัดอันดับอนิเมะที่น่าสนใจ เพื่อช่วยแก้ปัญหาความยุ่งยากในการเลือกชมอนิเมะที่มีความหลากหลายในปัจจุบัน โดยออกแบบระบบให้ใช้งานง่าย เหมาะสำหรับผู้ใช้ทั่วไป วัยรุ่น และผู้ชมมือใหม่","tools":"","href":"https://drive.google.com/file/d/11j-W3FNY0grBidqOUEa9gWDDrJv0lJ9L/view?usp=sharing","image":{"src":"/aniguide-preview.png","alt":"หน้าเว็บไซต์ Aniguide แสดงหมวดหมู่และรายการอนิเมะ","width":1027,"height":696}}];
 
@@ -104,9 +102,8 @@ export default function Work() {
             <div className="work-slide-caption"><div><span className="eyebrow">{project.type}</span><h3>{project.name}</h3></div><a className="text-link" href={project.href} target="_blank" rel="noopener noreferrer">ดูคลิปสาธิต ↗</a></div>
           </article>
         </div>
-        <div className="work-slide-controls"><Button className="work-slide-arrow" variant="outline" size="icon" onClick={() => dismiss(1)} disabled={exiting} aria-label="ผลงานก่อนหน้า"><ArrowLeft/></Button><span aria-live="polite" aria-atomic="true">{selected + 1} / {projects.length} · {project.name}</span><Button className="work-slide-arrow" variant="outline" size="icon" onClick={() => dismiss(-1)} disabled={exiting} aria-label="ผลงานถัดไป"><ArrowRight/></Button></div>
       </div>
-      <section className="work-published-detail" aria-labelledby="published-detail-heading"><h3 id="published-detail-heading">รายละเอียดผลงาน — {project.name}</h3><p>{project.detail}</p></section>
+      <section className="work-published-detail" aria-labelledby="published-detail-heading" aria-live="polite"><h3 id="published-detail-heading">รายละเอียดผลงาน — {project.name}</h3><p>{project.detail}</p></section>
 
     </div>
   </section>;
