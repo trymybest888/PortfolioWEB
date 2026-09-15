@@ -8,7 +8,7 @@ export default function PortfolioMotion() {
     const shell = document.getElementById('portfolio-shell');
     const hero = document.querySelector<HTMLElement>('.hero');
     if (!shell || !hero) return;
-    const items = Array.from(document.querySelectorAll<HTMLElement>('.hero-copy,.hero-art,.about>div,.page-heading,.skill-card,.timeline article,.project'));
+    const items = Array.from(document.querySelectorAll<HTMLElement>('.hero-copy,.hero-art,.about>div,.page-heading,.skill-card,.timeline article,.project,.work-slider-shell'));
     let frame = 0;
     const observer = new IntersectionObserver(entries => {
       if (shell.inert) return;
@@ -20,11 +20,12 @@ export default function PortfolioMotion() {
       });
     }, { threshold: 0.08 });
     const reveal = () => {
-      items.forEach(item => {
+      items.forEach((item, index) => {
         if (motion.matches) {
           item.classList.remove('motion-reveal');
           observer.unobserve(item);
         } else {
+          item.style.setProperty('--reveal-delay', `${Math.min(index % 3, 2) * 90}ms`);
           item.classList.add('motion-reveal');
           observer.unobserve(item);
           observer.observe(item);
@@ -51,7 +52,7 @@ export default function PortfolioMotion() {
       window.removeEventListener('scroll', scroll);
       cancelAnimationFrame(frame);
       hero.style.removeProperty('--art-drift');
-      items.forEach(item => item.classList.remove('motion-reveal', 'is-revealed'));
+      items.forEach(item => { item.classList.remove('motion-reveal', 'is-revealed'); item.style.removeProperty('--reveal-delay'); });
     };
   }, []);
   return null;

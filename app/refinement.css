@@ -1,4 +1,16 @@
 /* Shared visual rhythm for the portfolio. */
+@keyframes detail-arrive{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:no-preference){
+ .motion-reveal{transition:opacity .75s ease var(--reveal-delay,0ms),transform .75s cubic-bezier(.16,1,.3,1) var(--reveal-delay,0ms)}
+ .skill-card,.timeline article{transition:opacity .75s ease var(--reveal-delay,0ms),transform .45s cubic-bezier(.2,.8,.2,1),border-color .3s,background .3s,box-shadow .3s}
+ .work-published-detail{animation:detail-arrive .4s ease both}
+ .section-navigation-link,.button{transition:background .25s,color .25s,transform .25s,box-shadow .25s}
+ .button span{transition:transform .25s}.button:hover span{transform:translate(3px,-3px)}
+ .button:active,.section-navigation-link:active{transform:scale(.96)}
+ .skill-level-list>div{transition:padding .25s,background .25s}
+ .text-link{transition:color .25s,border-color .25s,transform .25s}.text-link:hover{transform:translateY(-2px)}
+ @media(hover:hover){.skill-card.is-revealed:hover,.timeline article.is-revealed:hover{transform:translateY(-5px);box-shadow:0 16px 35px #0003}.skill-level-list>div:hover{padding-left:8px;padding-right:8px;background:#c8e6a008}.button:hover{box-shadow:0 8px 24px #c8e6a020}}
+}
 :root,.dark{--background:#101210;--foreground:#f1f0e8;--accent:#c8e6a0;--border:#30372e;--ring:#c8e6a0}
 body{background:var(--background);color:var(--foreground)}
 html{scroll-padding-top:100px}

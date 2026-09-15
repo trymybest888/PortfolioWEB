@@ -103,7 +103,7 @@ export default function Work() {
           </article>
         </div>
       </div>
-      <section className="work-published-detail" aria-labelledby="published-detail-heading" aria-live="polite"><h3 id="published-detail-heading">รายละเอียดผลงาน — {project.name}</h3><p>{project.detail}</p></section>
+      <section key={project.n} className="work-published-detail" aria-labelledby="published-detail-heading" aria-live="polite"><h3 id="published-detail-heading">รายละเอียดผลงาน — {project.name}</h3><p>{project.detail}</p></section>
 
     </div>
   </section>;
