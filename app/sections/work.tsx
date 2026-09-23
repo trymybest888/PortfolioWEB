@@ -79,6 +79,8 @@ export default function Work() {
     } else cancelDrag();
   }
 
+  const swipeProgress = reducedMotion ? 0 : Math.min(Math.abs(drag.x) / 180, 1);
+
   return <section id="work" className="page-main portfolio-section" aria-labelledby="work-heading">
     <div className="page-heading"><div><span className="eyebrow">[ 04 — SELECTED WORK ]</span><h2 id="work-heading">WORK <em>ARCHIVE.</em></h2></div></div>
     <div className="work-slider-shell">
@@ -91,10 +93,10 @@ export default function Work() {
         <div className="work-card-stack">
           {[2, 1].map(depth => {
             const behind = projects[(selected + (drag.x > 0 ? projects.length - depth : depth)) % projects.length];
-            return <div key={depth} className={'work-stack-back depth-' + depth} aria-hidden="true"><img src={behind.image.src} alt="" draggable={false}/></div>;
+            return <div key={depth} className={'work-stack-back depth-' + depth} aria-hidden="true" style={reducedMotion ? undefined : { transform: `translateY(${(depth === 1 ? 14 : 27) * (1 - swipeProgress)}px) scale(${1 - depth * .04 + swipeProgress * .04}) rotate(${(depth === 1 ? -3 : 3) * (1 - swipeProgress)}deg)`, transition: dragging ? 'none' : 'transform 320ms ease-out' }}><img style={{ opacity: .35 + swipeProgress * .45 }} src={behind.image.src} alt="" draggable={false}/></div>;
           })}
           <article key={project.n} className={'work-slide-card work-stack-front' + (dragging ? ' is-dragging' : '') + (exiting ? ' is-exiting' : '')}
-            style={{ transform: 'translate3d(' + drag.x + 'px,' + drag.y + 'px,0) rotate(' + (reducedMotion ? 0 : Math.max(-28, Math.min(28, drag.x / 22))) + 'deg)', transition: exiting ? 'transform 320ms ease-in, opacity 320ms ease-in' : undefined }}>
+            style={{ opacity: exiting ? 0 : 1 - swipeProgress * .18, boxShadow: `0 ${18 + swipeProgress * 20}px ${50 + swipeProgress * 30}px #0008`, transform: 'translate3d(' + drag.x + 'px,' + drag.y + 'px,0) rotate(' + (reducedMotion ? 0 : Math.max(-28, Math.min(28, drag.x / 22))) + 'deg)', transition: exiting ? 'transform 320ms ease-in, opacity 320ms ease-in' : undefined }}>
             <div className="work-slide-banner" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={cancelDrag} onLostPointerCapture={cancelDrag}>
               <img src={project.image.src} alt={project.image.alt} width={project.image.width} height={project.image.height} draggable={false}/>
               <span className="work-slide-number">{project.n} / 03</span>
