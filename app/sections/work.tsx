@@ -95,17 +95,18 @@ export default function Work() {
             const behind = projects[(selected + (drag.x > 0 ? projects.length - depth : depth)) % projects.length];
             return <div key={depth} className={'work-stack-back depth-' + depth} aria-hidden="true" style={reducedMotion ? undefined : { transform: `translateY(${(depth === 1 ? 14 : 27) * (1 - swipeProgress)}px) scale(${1 - depth * .04 + swipeProgress * .04}) rotate(${(depth === 1 ? -3 : 3) * (1 - swipeProgress)}deg)`, transition: dragging ? 'none' : 'transform 320ms ease-out' }}><img style={{ opacity: .35 + swipeProgress * .45 }} src={behind.image.src} alt="" draggable={false}/></div>;
           })}
-          <article key={project.n} className={'work-slide-card work-stack-front' + (dragging ? ' is-dragging' : '') + (exiting ? ' is-exiting' : '')}
+          <article aria-live="polite" key={project.n} className={'work-slide-card work-stack-front' + (dragging ? ' is-dragging' : '') + (exiting ? ' is-exiting' : '')}
             style={{ opacity: exiting ? 0 : 1 - swipeProgress * .18, boxShadow: `0 ${18 + swipeProgress * 20}px ${50 + swipeProgress * 30}px #0008`, transform: 'translate3d(' + drag.x + 'px,' + drag.y + 'px,0) rotate(' + (reducedMotion ? 0 : Math.max(-28, Math.min(28, drag.x / 22))) + 'deg)', transition: exiting ? 'transform 320ms ease-in, opacity 320ms ease-in' : undefined }}>
-            <div className="work-slide-banner" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={cancelDrag} onLostPointerCapture={cancelDrag}>
+            <div data-project={project.n} className="work-slide-banner" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={cancelDrag} onLostPointerCapture={cancelDrag}>
               <img src={project.image.src} alt={project.image.alt} width={project.image.width} height={project.image.height} draggable={false}/>
-              <span className="work-slide-number">{project.n} / 03</span>
+              <span className="work-slide-number">PROJECT {project.n} / 03</span>
             </div>
             <div className="work-slide-caption"><div><span className="eyebrow">{project.type}</span><h3>{project.name}</h3></div><a className="text-link" href={project.href} target="_blank" rel="noopener noreferrer">ดูคลิปสาธิต ↗</a></div>
+            <section className="work-published-detail" aria-labelledby="published-detail-heading"><h4 id="published-detail-heading">เกี่ยวกับผลงาน</h4><p>{project.detail}</p></section>
           </article>
         </div>
       </div>
-      <section key={project.n} className="work-published-detail" aria-labelledby="published-detail-heading" aria-live="polite"><h3 id="published-detail-heading">รายละเอียดผลงาน — {project.name}</h3><p>{project.detail}</p></section>
+
 
     </div>
   </section>;
