@@ -10,6 +10,33 @@ export default function PortfolioMotion() {
     if (!shell || !hero) return;
     const items = Array.from(document.querySelectorAll<HTMLElement>('.hero-copy,.hero-art,.about>div,.page-heading,.skill-card,.timeline article,.project,.work-slider-shell'));
     let frame = 0;
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const surfaces = Array.from(document.querySelectorAll<HTMLElement>('.hero-art,.skill-card'));
+    const resets = surfaces.map(surface => {
+      let pointerFrame = 0;
+      const reset = () => {
+        cancelAnimationFrame(pointerFrame);
+        pointerFrame = 0;
+        ['--tilt-x','--tilt-y','--glow-x','--glow-y'].forEach(name => surface.style.removeProperty(name));
+      };
+      const move = (event: PointerEvent) => {
+        if (motion.matches || !finePointer.matches || event.pointerType !== 'mouse') return;
+        cancelAnimationFrame(pointerFrame);
+        pointerFrame = requestAnimationFrame(() => {
+          const box = surface.getBoundingClientRect();
+          const x = (event.clientX - box.left) / box.width;
+          const y = (event.clientY - box.top) / box.height;
+          surface.style.setProperty('--tilt-x', `${(0.5-y)*5}deg`);
+          surface.style.setProperty('--tilt-y', `${(x-0.5)*5}deg`);
+          surface.style.setProperty('--glow-x', `${x*100}%`);
+          surface.style.setProperty('--glow-y', `${y*100}%`);
+        });
+      };
+      surface.addEventListener('pointermove', move);
+      surface.addEventListener('pointerleave', reset);
+      motion.addEventListener('change', reset);
+      return () => { reset(); surface.removeEventListener('pointermove', move); surface.removeEventListener('pointerleave', reset); motion.removeEventListener('change', reset); };
+    });
     const observer = new IntersectionObserver(entries => {
       if (shell.inert) return;
       entries.forEach(entry => {
@@ -46,6 +73,7 @@ export default function PortfolioMotion() {
     motion.addEventListener('change', reveal);
     window.addEventListener('scroll', scroll, { passive: true });
     return () => {
+      resets.forEach(reset => reset());
       observer.disconnect();
       mutation.disconnect();
       motion.removeEventListener('change', reveal);
