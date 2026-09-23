@@ -11,7 +11,7 @@ export default function MusicPlayer() {
   useEffect(() => {
     const player = audio.current;
     if (!player) return;
-    player.volume = 0.245;
+    player.volume = 0.1225;
     let disposed = false;
     const detach = () => {
       window.removeEventListener('pointerup', retry);
@@ -35,7 +35,7 @@ export default function MusicPlayer() {
     setError('');
     if (!player.paused) { player.pause(); return; }
     setPending(true);
-    player.volume = 0.245;
+    player.volume = 0.1225;
     try { await player.play(); }
     catch { setError('เล่นเพลงไม่ได้ กรุณาลองกดเปิดอีกครั้ง'); }
     finally { setPending(false); }
@@ -46,3 +46,4 @@ export default function MusicPlayer() {
     <button className="music-toggle" type="button" onClick={toggle} disabled={pending} aria-pressed={playing} aria-label={playing ? 'ปิดเพลง Rather Lie' : 'เปิดเพลง Rather Lie'}>{pending ? 'กำลังโหลดเพลง…' : playing ? '♫ ปิดเพลง' : '♫ เปิดเพลง'}</button>
   </aside>;
 }
+
