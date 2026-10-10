@@ -7,9 +7,9 @@ The sticky navigation scrolls to Introduction, Skills, History and Work using na
 - Introduction and section composition: app/page.tsx
 - Skills: app/sections/skills.tsx
 - History: app/sections/history.tsx
-- Work: app/sections/work.tsx
+- Work: app/sections/work.tsx, listing public GitHub repos fetched in app/github.ts (refreshed hourly)
 - Navigation: app/navigation.tsx
-- Styling: app/globals.css
+- Styling: app/theme.css
 
 Previous /skills, /history and /work URLs redirect to the corresponding section on the home page.
 
@@ -25,7 +25,7 @@ After the clasp, a separate released-hands image keeps each complete hand on its
 
 - Component: app/handshake-intro.tsx
 - Animation: app/handshake-intro.css
-- Assets: public/handsign-v2-*.jpg
+- Assets: public/handsign-v2-*.webp
 - Six gestures take about 3 seconds; the final clasp hold and door reveal extend the intro to 4.7 seconds.
 - Plays once per tab session; skips section deep links and reduced-motion preferences.
 - Skip button and Escape dismiss it. Failed or slow image loading releases the page automatically.

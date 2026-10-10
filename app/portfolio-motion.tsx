@@ -8,7 +8,7 @@ export default function PortfolioMotion() {
     const shell = document.getElementById('portfolio-shell');
     const hero = document.querySelector<HTMLElement>('.hero');
     if (!shell || !hero) return;
-    const items = Array.from(document.querySelectorAll<HTMLElement>('.hero-copy,.hero-art,.about>div,.page-heading,.skill-card,.timeline article,.project,.work-slider-shell'));
+    const items = Array.from(document.querySelectorAll<HTMLElement>('.hero-copy'));
     let frame = 0;
     const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
     const surfaces = Array.from(document.querySelectorAll<HTMLElement>('.hero-art,.skill-card'));

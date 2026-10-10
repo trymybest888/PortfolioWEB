@@ -1,4 +1,5 @@
 'use client';
+import { Music } from 'lucide-react';
 
 import { useEffect, useRef, useState } from 'react';
 
@@ -11,10 +12,11 @@ export default function MusicPlayer() {
   useEffect(() => {
     const player = audio.current;
     if (!player) return;
-    player.volume = 0.1225;
+    player.volume = 0.06;
     let disposed = false;
     const detach = () => {
       window.removeEventListener('pointerup', retry);
+      window.removeEventListener('touchend', retry);
       window.removeEventListener('keydown', retry);
     };
     const retry = (event: Event) => {
@@ -24,6 +26,7 @@ export default function MusicPlayer() {
     void player.play().catch(() => {
       if (disposed || manual.current) return;
       window.addEventListener('pointerup', retry);
+      window.addEventListener('touchend', retry, { passive: true });
       window.addEventListener('keydown', retry);
     });
     return () => { disposed = true; detach(); player.pause(); };
@@ -35,15 +38,16 @@ export default function MusicPlayer() {
     setError('');
     if (!player.paused) { player.pause(); return; }
     setPending(true);
-    player.volume = 0.1225;
+    player.volume = 0.06;
     try { await player.play(); }
     catch { setError('เล่นเพลงไม่ได้ กรุณาลองกดเปิดอีกครั้ง'); }
     finally { setPending(false); }
   }
   return <aside className="music-widget" aria-label="เพลงประกอบเว็บไซต์">
-    <audio ref={audio} src="/rather-lie.mp3" loop preload="auto" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => { setPlaying(false); setPending(false); setError('ไม่สามารถโหลดเพลงได้ กรุณาลองใหม่'); }}/>
+    <audio ref={audio} src="/rather-lie.mp3" loop preload="metadata" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => { setPlaying(false); setPending(false); setError('ไม่สามารถโหลดเพลงได้ กรุณาลองใหม่'); }}/>
     {error && <p className="music-error" role="status">{error}</p>}
-    <button className="music-toggle" type="button" onClick={toggle} disabled={pending} aria-pressed={playing} aria-label={playing ? 'ปิดเพลง Rather Lie' : 'เปิดเพลง Rather Lie'}>{pending ? 'กำลังโหลดเพลง…' : playing ? '♫ ปิดเพลง' : '♫ เปิดเพลง'}</button>
+    <button className="music-toggle" type="button" onClick={toggle} disabled={pending} aria-pressed={playing} aria-label={playing ? 'ปิดเพลง Rather Lie' : 'เปิดเพลง Rather Lie'}>{pending ? 'กำลังโหลดเพลง…' : <><Music aria-hidden="true" className="icon-inline" size="1em" strokeWidth={1.75}/> {playing ? 'ปิดเพลง' : 'เปิดเพลง'}</>}</button>
   </aside>;
 }
+
 
