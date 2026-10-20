@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import MusicPlayer from './music-player';
 
 const links = [
-  ['introduction', 'แนะนำตัว', '1'],
-  ['skills', 'SKILLS', '2'],
+  ['introduction', 'หน้าแรก', '1'],
+  ['skills', 'ทักษะ', '2'],
   ['history', 'ประวัติ', '3'],
   ['work', 'ผลงาน', '4'],
 ];
@@ -16,7 +17,7 @@ export default function Navigation() {
     let frame = 0;
     const updateActive = () => {
       frame = 0;
-      const offset = 48;
+      const offset = window.matchMedia('(max-width: 680px)').matches ? 32 : 120;
       let current = 'introduction';
       for (const [id] of links) {
         const section = document.getElementById(id);
@@ -43,11 +44,12 @@ export default function Navigation() {
   return (
       <nav className="section-navigation" aria-label="เมนูหัวข้อ">
         {links.map(([id, label, number]) => (
-          <a key={id} className="section-navigation-link" href={`#${id}`} onClick={() => setActive(id)} aria-label={label} aria-current={active === id ? 'location' : undefined}>
+          <a key={id} className="section-navigation-link" href={`/#${id}`} onClick={() => setActive(id)} aria-label={label} aria-current={active === id ? 'location' : undefined}>
             <span className="section-navigation-label" aria-hidden="true">{label}</span>
             <span className="section-navigation-number" aria-hidden="true">{number}</span>
           </a>
         ))}
+        <MusicPlayer/>
       </nav>
   );
 }

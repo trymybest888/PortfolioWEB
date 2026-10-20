@@ -1,19 +1,20 @@
 'use client';
+import { ArrowUpRight } from "lucide-react";
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 const SEEN_KEY = 'opium-handshake-intro-v5';
 const STEPS = [
-  { src: '/handsign-v2-web.jpg', name: 'Thumb-web hook' },
-  { src: '/handsign-v2-reverse.jpg', name: 'Reverse thumb-web hook' },
-  { src: '/handsign-v2-pinky.jpg', name: 'Pinky hook' },
-  { src: '/handsign-v2-double.jpg', name: 'Pinky and index hook' },
-  { src: '/handsign-v2-web.jpg', name: 'Return to thumb-web hook' },
-  { src: '/handsign-v2-clasp.jpg?v=interlaced', name: 'Interlaced clasp' },
+  { src: '/handsign-v2-web.webp', name: 'Thumb-web hook' },
+  { src: '/handsign-v2-reverse.webp', name: 'Reverse thumb-web hook' },
+  { src: '/handsign-v2-pinky.webp', name: 'Pinky hook' },
+  { src: '/handsign-v2-double.webp', name: 'Pinky and index hook' },
+  { src: '/handsign-v2-web.webp', name: 'Return to thumb-web hook' },
+  { src: '/handsign-v2-clasp.webp?v=interlaced', name: 'Interlaced clasp' },
 ];
-const RELEASE_IMAGE = '/handsign-v2-release.jpg';
+const RELEASE_IMAGE = '/handsign-v2-release.webp';
 const FRAMES = [...new Set([...STEPS.map(step => step.src), RELEASE_IMAGE])];
-const INTRO_DURATION = 4700;
+const INTRO_DURATION = 3200;
 type Phase = 'off' | 'loading' | 'playing';
 
 export default function HandshakeIntro() {
@@ -144,7 +145,7 @@ export default function HandshakeIntro() {
       <div className="handshake-light-core" aria-hidden="true"/>
       <div className="handshake-bottom">
         <div><span className="handshake-caption">A MOMENT OF CONNECTION.</span><span className="handshake-rule" aria-hidden="true"/></div>
-        <button ref={skipRef} onClick={dismiss} className="handshake-skip">ข้ามอินโทร <span aria-hidden="true">↗</span></button>
+        <button ref={skipRef} onClick={dismiss} className="handshake-skip">ข้ามอินโทร <ArrowUpRight aria-hidden="true" className="icon-inline" size="1em" strokeWidth={1.75}/></button>
       </div>
     </section>
   );
