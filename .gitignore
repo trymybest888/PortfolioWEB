@@ -41,3 +41,6 @@ next-env.d.ts
 
 # typescript build cache
 *.tsbuildinfo
+
+# Local notes, kept out of the repo
+README.md
