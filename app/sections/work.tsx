@@ -9,7 +9,10 @@ export default function Work({ repos }: { repos: Repo[] }) {
     {repos.length > 0
       ? <ul className="repo-list">{repos.map(repo => <li className="repo" key={repo.name}>
           <h3 className="repo-name"><a href={repo.url} target="_blank" rel="noopener noreferrer">{repo.name}<ArrowUpRight aria-hidden="true" size="0.4em" strokeWidth={2}/></a></h3>
-          <p className="repo-description">{repo.description}</p>
+          <div className="repo-body">
+            {repo.forkOf && <p className="repo-fork">Fork จาก <a href={repo.forkOf.url} target="_blank" rel="noopener noreferrer">{repo.forkOf.name}</a></p>}
+            <p className="repo-description">{repo.description}</p>
+          </div>
           <dl className="repo-meta">
             {repo.language && <div><dt>ภาษา</dt><dd>{repo.language}</dd></div>}
             <div><dt>อัปเดตล่าสุด</dt><dd><time dateTime={repo.pushedAt}>{updated.format(new Date(repo.pushedAt))}</time></dd></div>

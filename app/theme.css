@@ -120,6 +120,9 @@ a,button{touch-action:manipulation}
 .repo-name a:hover,.repo:hover .repo-name a{color:var(--blood)}
 .repo-name svg{flex-shrink:0;margin-top:.1em}
 .repo-description{max-width:36em;margin:0;color:var(--ash)}
+.repo-fork{margin:0 0 8px;font-size:13px;color:var(--ash)}
+.repo-fork a{color:var(--bone);border-bottom:1px solid var(--ash)}
+.repo-fork a:hover{border-color:var(--blood)}
 .repo-meta{display:flex;gap:28px;margin:0;font-size:13px;white-space:nowrap}
 .repo-meta dt{color:var(--ash)}
 .repo-meta dd{margin:0}
