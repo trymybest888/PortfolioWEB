@@ -48,7 +48,10 @@ async function getForkParent(name: string): Promise<Repo['forkOf']> {
 export async function getRepos(): Promise<Repo[]> {
   try {
     const response = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=pushed&per_page=100`, requestInit);
-    if (!response.ok) return [];
+    if (!response.ok) {
+      console.error(`GitHub repo list failed: ${response.status} ${await response.text()}`);
+      return [];
+    }
     const repos = (await response.json()) as GitHubRepo[];
     return await Promise.all(repos
       .filter(repo => !repo.archived && !repo.private)
@@ -61,7 +64,8 @@ export async function getRepos(): Promise<Repo[]> {
         pushedAt: repo.pushed_at,
         forkOf: repo.fork ? await getForkParent(repo.name) : null,
       })));
-  } catch {
+  } catch (error) {
+    console.error('GitHub repo list failed:', error);
     return [];
   }
 }
